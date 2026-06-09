@@ -1,2 +1,2 @@
-# embbok
-Embedding Body of Knowledge
+# esbok
+Embedded Systems Body of Knowledge
