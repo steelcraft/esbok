@@ -1,0 +1,58 @@
+name: Build & Deploy Book
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - run: bundle install
+
+      - name: Build Web HTML
+        run: |
+          mkdir -p dist/web
+          bundle exec asciidoctor -b html5 -d book -o dist/web/index.html book.adoc
+
+      - name: Build PDF
+        run: |
+          mkdir -p dist/pdf
+          bundle exec asciidoctor-pdf -o dist/pdf/book.pdf book.adoc
+
+      - name: Upload Web to Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/web
+
+      - name: Upload PDF Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: embedded-book-pdf
+          path: dist/pdf/book.pdf
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
