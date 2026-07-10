@@ -1,0 +1,23 @@
+= Название книги
+Автор Имя Фамилия
+:doctype: book
+:toc: left
+:toclevels: 3
+:sectnums:
+:icons: font
+:source-highlighter: rouge
+:stem: latexmath
+:lang: ru
+:docinfo: shared
+:imagesdir: {docdir}/assets/images
+:stylesdir: {docdir}/../../shared/themes
+:pdf-theme: {stylesdir}/pdf-theme.yml
+:pdf-fontsdir: {docdir}/../../shared/fonts
+:diagram-format: svg
+
+ifdef::env-github[]
+:toc: macro
+endif::[]
+
+include::chapters/ch01.adoc[]
+// include::chapters/ch02.adoc[]
