@@ -1,0 +1,39 @@
+font:
+  catalog:
+    PT Serif:
+      normal: PT_Serif-Regular.ttf
+      bold: PT_Serif-Bold.ttf
+      italic: PT_Serif-Italic.ttf
+      bold_italic: PT_Serif-BoldItalic.ttf
+    Fira Code:
+      normal: FiraCode-Regular.ttf
+      bold: FiraCode-Bold.ttf
+base:
+  font_family: PT Serif
+  font_size: 11
+  line_height_length: 17
+heading:
+  font_family: PT Serif
+  font_style: bold
+  margin_top: 1.2 * @base_line_height_length
+  margin_bottom: 0.5 * @base_line_height_length
+code:
+  font_family: Fira Code
+  font_size: 9
+  line_height: 1.4
+  background_color: F5F5F5
+  border_color: E0E0E0
+  border_radius: 4
+table:
+  border_color: D0D0D0
+  stripe_background_color: F9F9F9
+  head:
+    font_style: bold
+footer:
+  border_color: CCCCCC
+  recto:
+    right:
+      content: '{page-number} | {section-title}'
+  verso:
+    left:
+      content: '{section-title} | {page-number}'
