@@ -1,0 +1,83 @@
+# .github/workflows/deploy-pages.yml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:  # ручной запуск
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            ruby ruby-dev \
+            fonts-paratype \
+            fonts-firacode \
+            nodejs npm
+
+      - name: Install Mermaid CLI
+        run: sudo npm install -g @mermaid-js/mermaid-cli
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      # Сборка всех книг
+      - name: Build all books
+        run: |
+          for book_dir in books/*/; do
+            book=$(basename "$book_dir")
+            [ "$book" = "_template" ] && continue
+            [ ! -f "$book_dir/book.adoc" ] && continue
+
+            echo "📦 Building $book..."
+            mkdir -p dist/$book
+            cd "$book_dir"
+            bundle install --quiet
+            bundle exec asciidoctor -b html5 -d book -o "../../dist/$book/index.html" book.adoc
+            bundle exec asciidoctor-pdf -o "../../dist/$book/book.pdf" book.adoc
+            cd ..
+          done
+
+      # Подготовка к деплою: копируем shared ресурсы
+      - name: Prepare deployment
+        run: |
+          mkdir -p _site
+          cp -r dist/* _site/
+          cp -r shared _site/shared
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
