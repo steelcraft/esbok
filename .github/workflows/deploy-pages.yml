@@ -4,7 +4,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-  workflow_dispatch:  # ручной запуск
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,26 +42,52 @@ jobs:
       # Сборка всех книг
       - name: Build all books
         run: |
+          BOOKS_BUILT=0
           for book_dir in books/*/; do
             book=$(basename "$book_dir")
             [ "$book" = "_template" ] && continue
             [ ! -f "$book_dir/book.adoc" ] && continue
 
             echo "📦 Building $book..."
-            mkdir -p dist/$book
+            mkdir -p "dist/$book"
             cd "$book_dir"
             bundle install --quiet
             bundle exec asciidoctor -b html5 -d book -o "../../dist/$book/index.html" book.adoc
             bundle exec asciidoctor-pdf -o "../../dist/$book/book.pdf" book.adoc
-            cd ..
+            cd ../..
+            BOOKS_BUILT=$((BOOKS_BUILT + 1))
           done
 
-      # Подготовка к деплою: копируем shared ресурсы
+          echo "📚 Всего собрано книг: $BOOKS_BUILT"
+          if [ "$BOOKS_BUILT" -eq 0 ]; then
+            echo "❌ Ошибка: не найдено ни одной книги для сборки!"
+            echo "   Проверьте, что в books/ есть директории с book.adoc"
+            ls -la books/
+            exit 1
+          fi
+
+          echo "📁 Содержимое dist/:"
+          ls -la dist/
+
+      # Проверка, что dist/ не пуст
+      - name: Check dist directory
+        run: |
+          if [ ! -d "dist" ] || [ -z "$(ls -A dist)" ]; then
+            echo "❌ Ошибка: директория dist/ пуста или не существует!"
+            echo "   Проверьте логи шага 'Build all books'"
+            exit 1
+          fi
+          echo "✅ dist/ содержит файлы:"
+          find dist/ -type f
+
+      # Подготовка к деплою
       - name: Prepare deployment
         run: |
           mkdir -p _site
           cp -r dist/* _site/
           cp -r shared _site/shared
+          echo " Структура _site/:"
+          ls -la _site/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -71,13 +97,6 @@ jobs:
         with:
           path: _site
 
-  deploy:
-    needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
