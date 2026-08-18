@@ -1,0 +1,31 @@
+= advanced-c
+Автор Имя Фамилия
+:doctype: book
+:lang: ru
+:toc: left
+:toclevels: 3
+:sectnums:
+:icons: font
+:source-highlighter: rouge
+:stem: latexmath
+:docinfo: shared
+:imagesdir: {docdir}/assets/images
+:stylesdir: {docdir}/../../shared/themes
+:pdf-theme: {stylesdir}/pdf-theme.yml
+:pdf-fontsdir: {docdir}/../../shared/fonts
+:diagram-format: svg
+:mermaid-command: mmdc
+
+// Подключение русской локализации
+include::../../shared/locales/ru.adoc[]
+
+ifdef::env-github[]
+:toc: macro
+endif::[]
+
+// === Предисловие ===
+include::chapters/preface.adoc[]
+
+// === Главы ===
+include::chapters/ch01.adoc[]
+// include::chapters/ch02.adoc[]
