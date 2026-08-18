@@ -1,0 +1,21 @@
+// shared/locales/ru.adoc
+// Русская локализация для всех книг ESBOK
+
+:lang: ru
+:toc-title: Содержание
+:figure-caption: Рисунок
+:table-caption: Таблица
+:example-caption: Пример
+:listing-caption: Листинг
+:appendix-caption: Приложение
+:part-signifier: Часть
+:chapter-signifier: Глава
+:section-signifier: Раздел
+:version-label: Версия
+:last-update-label: Последнее обновление
+:note-caption: Примечание
+:tip-caption: Совет
+:warning-caption: Предупреждение
+:caution-caption: Осторожно
+:important-caption: Важно
+:author-label: Автор
