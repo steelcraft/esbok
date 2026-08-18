@@ -1,0 +1,106 @@
+# .github/workflows/ci-build.yml
+name: CI Build & Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Отменяем предыдущий запуск, если появился новый
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Определяем, какие книги изменились
+  detect:
+    runs-on: ubuntu-latest
+    outputs:
+      books: ${{ steps.filter.outputs.books }}
+      shared: ${{ steps.filter.outputs.shared }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            books:
+              - 'books/**/*.adoc'
+              - 'books/**/Gemfile'
+              - 'books/**/docinfo.html'
+            shared:
+              - 'shared/themes/**'
+              - 'shared/fonts/**'
+              - 'shared/vendor/**'
+
+  # Сборка изменённых книг
+  build:
+    needs: detect
+    if: ${{ needs.detect.outputs.books == 'true' || needs.detect.outputs.shared == 'true' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        book: [first, embedded-basics]  # добавьте сюда все ваши книги
+    steps:
+      - uses: actions/checkout@v4
+
+      # Установка системных зависимостей
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            ruby ruby-dev \
+            fonts-paratype \
+            fonts-firacode \
+            nodejs npm \
+            curl
+
+      # Установка Mermaid CLI для рендера диаграмм
+      - name: Install Mermaid CLI
+        run: sudo npm install -g @mermaid-js/mermaid-cli
+
+      # Настройка Ruby и Bundler
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      # Кэширование npm-пакетов (ускоряет сборку)
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('**/package-lock.json') }}
+
+      # Сборка книги
+      - name: Build book
+        run: |
+          cd books/${{ matrix.book }}
+          bundle install
+          bundle exec asciidoctor -b html5 -d book -o ../../dist/${{ matrix.book }}/index.html book.adoc
+          bundle exec asciidoctor-pdf -o ../../dist/${{ matrix.book }}/book.pdf book.adoc
+
+      # Проверка синтаксиса (опционально)
+      - name: Lint AsciiDoc
+        run: |
+          gem install asciidoctor-lint 2>/dev/null || true
+          asciidoctor-lint books/${{ matrix.book }}/**/*.adoc || echo "⚠️ Линтер не установлен"
+
+      # Загрузка артефактов
+      - name: Upload HTML artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.book }}-html
+          path: dist/${{ matrix.book }}/index.html
+          retention-days: 7
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.book }}-pdf
+          path: dist/${{ matrix.book }}/book.pdf
+          retention-days: 7
