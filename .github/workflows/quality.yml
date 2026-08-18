@@ -1,0 +1,27 @@
+# .github/workflows/quality.yml
+name: Quality Checks
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # каждый понедельник в 9:00
+  workflow_dispatch:
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install yaspeller
+        run: npm install -g yaspeller
+      - name: Check spelling
+        run: yaspeller --only-lang ru books/**/*.adoc || true
+
+  linkcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check links
+        run: |
+          gem install html-proofer
+          # Сначала соберите книги, затем проверьте
+          # htmlproofer dist --check-html --allow-hash-href
