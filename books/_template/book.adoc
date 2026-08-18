@@ -1,13 +1,15 @@
 = Название книги
 Автор Имя Фамилия
 :doctype: book
+// Подключение русской локализации
+include::../../shared/locales/ru.adoc[]
+:lang: ru
 :toc: left
 :toclevels: 3
 :sectnums:
 :icons: font
 :source-highlighter: rouge
 :stem: latexmath
-:lang: ru
 :docinfo: shared
 :imagesdir: {docdir}/assets/images
 :stylesdir: {docdir}/../../shared/themes
