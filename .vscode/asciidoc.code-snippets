@@ -1,0 +1,54 @@
+{
+    "Admonition Note": {
+        "prefix": "note",
+        "body": [
+            "[NOTE]",
+            "====",
+            "${1:Текст примечания}",
+            "===="
+        ],
+        "description": "Блок примечания"
+    },
+    "Admonition Warning": {
+        "prefix": "warn",
+        "body": [
+            "[WARNING]",
+            "====",
+            "${1:Текст предупреждения}",
+            "===="
+        ],
+        "description": "Блок предупреждения"
+    },
+    "Image": {
+        "prefix": "img",
+        "body": [
+            "image::${1:filename.svg}[\"${2:Описание}\", align=\"center\", width=${3:85}%]"
+        ],
+        "description": "Вставка изображения"
+    },
+    "Mermaid Diagram": {
+        "prefix": "mermaid",
+        "body": [
+            "[mermaid, ${1:fig:name}, title=\"${2:Название}\"]",
+            "....",
+            "${3:flowchart TB}",
+            "...."
+        ],
+        "description": "Mermaid-диаграмма"
+    },
+    "Code Listing": {
+        "prefix": "listing",
+        "body": [
+            "[source,c]",
+            "----",
+            "${1:// код}",
+            "----"
+        ],
+        "description": "Листинг кода"
+    },
+    "Cross Reference": {
+        "prefix": "xref",
+        "body": "<<${1:ref},$2>>",
+        "description": "Перекрёстная ссылка"
+    }
+}
