@@ -1,0 +1,27 @@
+= c-for-emb
+Автор Имя Фамилия
+:doctype: book
+:toc: left
+:toclevels: 2
+:sectnums:
+// Подключение русской локализации
+include::../../shared/locales/ru.adoc[]
+:lang: ru
+:toc-title: Содержание
+:icons: font
+:source-highlighter: rouge
+:stem: latexmath
+:docinfo: shared
+:imagesdir: {docdir}/assets/images
+:stylesdir: {docdir}/../../shared/themes
+:pdf-theme: {stylesdir}/pdf-theme.yml
+:pdf-fontsdir: {docdir}/../../shared/fonts
+:diagram-format: svg
+
+ifdef::env-github[]
+:toc: macro
+endif::[]
+
+include::chapters/preface.adoc[]
+//include::chapters/ch01.adoc[]
+// include::chapters/ch02.adoc[]
