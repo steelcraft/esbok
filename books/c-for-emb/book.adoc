@@ -1,12 +1,13 @@
 = c-for-emb
 Автор Имя Фамилия
 :doctype: book
+:toc: left
+:toclevels: 2
+:sectnums:
 // Подключение русской локализации
 include::../../shared/locales/ru.adoc[]
 :lang: ru
-:toc: left
-:toclevels: 3
-:sectnums:
+:toc-title: Содержание
 :icons: font
 :source-highlighter: rouge
 :stem: latexmath
@@ -22,5 +23,5 @@ ifdef::env-github[]
 endif::[]
 
 include::chapters/preface.adoc[]
-include::chapters/ch01.adoc[]
+//include::chapters/ch01.adoc[]
 // include::chapters/ch02.adoc[]
