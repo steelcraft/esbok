@@ -23,5 +23,6 @@ ifdef::env-github[]
 endif::[]
 
 include::chapters/preface.adoc[]
+include::chapters/history.adoc[]
 //include::chapters/ch01.adoc[]
 // include::chapters/ch02.adoc[]
