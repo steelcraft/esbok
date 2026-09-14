@@ -10,6 +10,7 @@ include::../../shared/locales/ru.adoc[]
 :toc-title: Содержание
 :icons: font
 :source-highlighter: rouge
+:rouge-style: github
 :stem: latexmath
 :docinfo: shared
 :imagesdir: {docdir}/assets/images
@@ -23,6 +24,10 @@ ifdef::env-github[]
 endif::[]
 
 include::chapters/preface.adoc[]
+
 include::chapters/history.adoc[]
+
+include::chapters/first-prog.adoc[]
+
 //include::chapters/ch01.adoc[]
 // include::chapters/ch02.adoc[]

@@ -1,3 +1,4 @@
+extends: default
 font:
   catalog:
     PT Serif:
@@ -8,12 +9,10 @@ font:
     Fira Code:
       normal: FiraCode-Regular.ttf
       bold: FiraCode-Bold.ttf
-
 base:
   font_family: PT Serif
   font_size: 11
   line_height: 1.4
-
 heading:
   font_family: PT Serif
   font_style: bold
@@ -25,7 +24,6 @@ heading:
   h6_font_size: 11
   margin_top: 20
   margin_bottom: 8
-
 code:
   font_family: Fira Code
   font_size: 9
@@ -34,13 +32,12 @@ code:
   border_color: E0E0E0
   border_radius: 4
   padding: [8, 8, 8, 8]
-
+  highlight_theme: github
 table:
   border_color: D0D0D0
   stripe_background_color: F9F9F9
   head:
     font_style: bold
-
 footer:
   font_size: 8
   border_color: CCCCCC
@@ -50,3 +47,9 @@ footer:
   verso:
     left:
       content: '{page-number}'
+thematic_break:
+  border_color: D0D0D0
+  border_style: solid
+  border_width: 0.5
+  margin_top: 12
+  margin_bottom: 12
