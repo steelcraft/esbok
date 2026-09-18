@@ -27,6 +27,8 @@ include::chapters/preface.adoc[]
 
 include::chapters/history.adoc[]
 
+include::chapters/conception.adoc[]
+
 include::chapters/first-prog.adoc[]
 
 //include::chapters/ch01.adoc[]
