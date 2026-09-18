@@ -29,5 +29,5 @@ include::chapters/history.adoc[]
 
 include::chapters/first-prog.adoc[]
 
-//include::chapters/ch01.adoc[]
+include::chapters/literature.adoc[]
 // include::chapters/ch02.adoc[]
