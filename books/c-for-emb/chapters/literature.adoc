@@ -1,0 +1,9 @@
+== Рекомендуемая литература
+
+. Kernighan B. W., Ritchie D. M. _The C Programming Language_. 2nd ed. — Prentice Hall, 1988. (Классическое руководство, описывающее ANSI C.)
+. Ritchie D. M. _The Development of the C Language_. // History of Programming Languages. — ACM, 1993. (Авторский взгляд на историю создания языка.)
+. ISO/IEC 9899:2024. _Programming languages — C_. (Актуальный стандарт C23.)
+. Seacord R. C. _Effective C: An Introduction to Professional C Programming_. — No Starch Press, 2020.
+. Gustedt J. _Modern C_. 2nd ed. — Manning, 2019. (Современный взгляд на язык C с учётом C11/C17.)
+. MISRA C:2023. _Guidelines for the Use of the C Language in Critical Systems_. — Motor Industry Software Reliability Association, 2023.
+. _STM32 C Coding Conventions_. — STMicroelectronics Application Note. (Пример отраслевых соглашений по стилю кода.)
