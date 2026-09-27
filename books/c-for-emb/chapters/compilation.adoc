@@ -460,11 +460,12 @@ strip --strip-debug --strip-unneeded program
 objcopy --add-gnu-debuglink=program.debug program
 ----
 
-=== Файлы покрытия кода (Coverage Files)
+==== Файлы покрытия кода
 
 При тестировании программы можно собирать статистику покрытия кода — какие строки и ветки кода выполнялись во время работы программы.
 
-==== Генерация файлов покрытия
+Генерация файлов покрытия:
+
 [source,bash]
 ----
 # Компиляция с поддержкой покрытия кода
@@ -481,28 +482,9 @@ gcc --coverage -fprofile-arcs -ftest-coverage module.c -o module
 
 # Генерация отчета о покрытии
 gcov module.c
-
-# Вывод:
-# File 'module.c'
-# Lines executed:85.71% of 7
-# Creating 'module.c.gcov'
 ----
 
-Файл `.gcov` содержит исходный код с пометками, какие строки выполнялись:
-
-[source,text]
-----
-        -:    0:Source:module.c
-        -:    1:#include <stdio.h>
-        -:    2:
-        1:    3:int add(int a, int b) {
-        1:    4:    return a + b;
-        -:    5:}
-        -:    6:
-    #####:    7:int multiply(int a, int b) {
-    #####:    8:    return a * b;
-        -:    9:}
-----
+Файл `.gcov` содержит исходный код с пометками, какие строки выполнялись.
 
 === Препроцессированный код
 
