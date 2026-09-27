@@ -337,7 +337,7 @@ gcc main.o module.o -o program
 file program
 ----
 
-Анализ загрузочного модуля^
+Анализ загрузочного модуля:
 
 [source,bash]
 ----
@@ -354,7 +354,7 @@ readelf -S program
 size program
 ----
 
-==== Листинг компиляции (Compilation Listing)
+==== Листинг компиляции
 
 **Листинг** — это текстовый файл, содержащий исходный код программы вместе с сгенерированным машинным кодом. Это мощный инструмент для анализа того, как компилятор преобразует ваш код.
 
@@ -380,78 +380,27 @@ gcc -c -g -Wa,-a,-ad module.c -o module.o > module.lst
 objdump -d -S -l module.o > module_mixed.lst
 ----
 
-=== Карта загрузки в память (Memory Map)
+==== Карта памяти
 
 **Карта памяти** (map file) — это текстовый файл, генерируемый линкером, который показывает, как различные модули и символы размещены в памяти итоговой программы.
 
-==== Получение карты памяти
+Получение карты памяти:
+
 [source,bash]
 ----
 # Генерация map файла при компоновке
 gcc main.o module.o -o program -Wl,-Map=program.map
-
-# Для embedded систем
-arm-none-eabi-gcc -T linker.ld main.o -o firmware.elf -Wl,-Map=firmware.map
 ----
 
-==== Структура map файла
-Map файл содержит несколько важных секций:
+Файл карты памяти содержит несколько важных секций:
 
-===== 1. Распределение памяти
-[source,text]
-----
-Memory Configuration
+. Распределение памяти
+. Размещение секций
+. Таблица символов
+. Статистика использования памяти
 
-Name             Origin             Length             Attributes
-FLASH            0x08000000         0x00100000         xr
-RAM              0x20000000         0x00020000         xrw
-----
+Файл карты памяти помогает:
 
-===== 2. Размещение секций
-[source,text]
-----
-Linker script and memory map
-
-.text           0x08000000     0x3a4c
- *(.text.startup)
- .text.startup  0x08000120     0x100  startup.o
- *(.text*)
- .text          0x08000220     0x1a2c  main.o
- .text          0x08001c4c     0x1e00  module.o
-
-.data           0x20000000      0x200
- *(.data*)
- .data          0x20000000      0x100  main.o
- .data          0x20001000      0x100  module.o
-
-.bss            0x20000200      0x400
- *(.bss*)
- .bss           0x20000200      0x200  main.o
- .bss           0x20000400      0x200  module.o
-----
-
-===== 3. Таблица символов
-[source,text]
-----
-Symbol table 'main.o' contains 25 entries:
-   Num:    Value          Size Type    Bind   Vis      Ndx Name
-     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
-     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS main.c
-     2: 0000000000000000     0 SECTION LOCAL  DEFAULT    1 
-     3: 0000000000000050    32 FUNC    GLOBAL DEFAULT    1 main
-     4: 0000000000000100     4 OBJECT  GLOBAL DEFAULT    3 global_counter
-----
-
-===== 4. Статистика использования памяти
-[source,text]
-----
-Memory region         Used Size   Region Size     %age Used
-    FLASH:              15234 B         1 MB        1.45%
-    RAM:                 1536 B       128 KB        1.17%
-----
-
-==== Анализ карты памяти
-Map файл помогает:
 *   Найти, где размещены конкретные функции и переменные
 *   Определить размер каждой секции
 *   Выявить дублирование кода
