@@ -309,17 +309,23 @@ readelf -a module.o         # Полная информация об ELF фай�
 objdump -h module.o         # Информация о секциях
 ----
 
-=== Загрузочный модуль (Load Module)
+==== Загрузочный модуль
 
 **Загрузочный модуль** — это готовый к выполнению исполняемый файл, полученный после компоновки. В отличие от объектного файла, все внешние ссылки разрешены, и код готов к загрузке в память процессором.
 
-==== Форматы загрузочных модулей
-*   **ELF** (Executable and Linkable Format) — стандарт для Linux и многих Unix-систем
-*   **PE/PE32+** (Portable Executable) — формат для Windows
-*   **Mach-O** — формат для macOS и iOS
-*   **COFF** (Common Object File Format) — устаревший формат, предшественник PE
+Форматы загрузочных модулей:
 
-==== Получение загрузочного модуля
+**ELF** (Executable and Linkable Format)::
+— стандарт для Linux и многих Unix-систем
+**PE/PE32+** (Portable Executable)::
+— формат для Windows
+**Mach-O**::
+— формат для macOS и iOS
+**COFF** (Common Object File Format)::
+— устаревший формат, предшественник PE
+
+Получение загрузочного модуля:
+
 [source,bash]
 ----
 # Компоновка в исполняемый файл
@@ -327,21 +333,14 @@ gcc main.o module.o -o program
 
 # Проверка типа файла
 file program
-
-# Вывод:
-# program: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked
 ----
 
-==== Анализ загрузочного модуля
+Анализ загрузочного модуля^
+
 [source,bash]
 ----
 # Динамические зависимости (для ELF)
 ldd program
-
-# Вывод:
-#     linux-vdso.so.1 (0x00007fff...)
-#     libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f...)
-#     /lib64/ld-linux-x86-64.so.2 (0x00007f...)
 
 # Информация о сегментах памяти
 readelf -l program
@@ -351,10 +350,6 @@ readelf -S program
 
 # Размер секций
 size program
-
-# Вывод:
-#    text    data     bss     dec     hex filename
-#   15234    1024     512   16770    4182 program
 ----
 
 === Листинг компиляции (Compilation Listing)
