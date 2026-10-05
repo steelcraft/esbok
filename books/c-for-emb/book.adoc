@@ -23,11 +23,13 @@ ifdef::env-github[]
 :toc: macro
 endif::[]
 
-//include::chapters/preface.adoc[]
+include::chapters/preface.adoc[]
 
-//include::chapters/history.adoc[]
+include::chapters/history.adoc[]
 
-//include::chapters/first-prog.adoc[]
+include::chapters/conception.adoc[]
+
+include::chapters/first-prog.adoc[]
 
 include::chapters/compilation.adoc[]
 
