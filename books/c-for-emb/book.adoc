@@ -29,9 +29,11 @@ endif::[]
 
 //include::chapters/first-prog.adoc[]
 
-include::chapters/macro.adoc[]
+//include::chapters/macro.adoc[]
 
-include::chapters/types.adoc[]
+//include::chapters/types.adoc[]
+
+include::chapters/scalar_types.adoc[]
 
 //include::chapters/ch01.adoc[]
 // include::chapters/ch02.adoc[]
