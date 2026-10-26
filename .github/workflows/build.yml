@@ -41,3 +41,12 @@ jobs:
           name: c-for-emb-html
           path: dist/c-for-emb/
           retention-days: 30
+          
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main' # Публикуем только при пуше в main
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/c-for-emb
+          destination_dir: ./ # Или укажите имя книги, например: ./c-for-emb
+          keep_files: true
