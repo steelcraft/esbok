@@ -1,0 +1,43 @@
+name: Build Book
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch: # Позволяет запустить сборку вручную из вкладки Actions
+
+jobs:
+  build:
+    name: Build AsciiDoc Book
+    # Используем официальный образ AsciiDoctor, чтобы не устанавливать Ruby/Gems вручную
+    runs-on: ubuntu-latest
+    container:
+      image: asciidoctor/docker-asciidoctor:latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make build script executable
+        run: chmod +x build.sh
+
+      - name: Build book (c-for-emb)
+        run: |
+          echo "🚀 Запуск сборки книги c-for-emb..."
+          # Скрипт build.sh должен быть адаптирован под Docker (см. примечание ниже)
+          ./build.sh c-for-emb
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: c-for-emb-pdf
+          path: dist/c-for-emb/book.pdf
+          retention-days: 30
+
+      - name: Upload HTML artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: c-for-emb-html
+          path: dist/c-for-emb/
+          retention-days: 30
