@@ -1,37 +1,40 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Название книги (первый аргумент или embedded-basics по умолчанию)
-BOOK="${1:-embedded-basics}"
+BOOK="${1:-c-for-emb}"
 BOOK_DIR="books/$BOOK"
 DIST_DIR="dist/$BOOK"
 
-# Проверка существования книги
 if [ ! -f "$BOOK_DIR/book.adoc" ]; then
     echo "❌ Ошибка: файл $BOOK_DIR/book.adoc не найден"
-    echo "   Доступные книги:"
-    ls books/ | grep -v _template | sed 's/^/     /'
     exit 1
 fi
 
 echo "📦 Сборка книги: $BOOK"
-
-# Создание директории вывода
 mkdir -p "$DIST_DIR"
 
-# Сборка HTML
-echo "🌐 Сборка HTML..."
+# Копирование ресурсов
+if [ -d "$BOOK_DIR/assets" ]; then
+    cp -r "$BOOK_DIR/assets" "$DIST_DIR/"
+fi
+
+# Очистка кэша диаграмм
+rm -rf "$BOOK_DIR/.asciidoctor" 2>/dev/null || true
+
 cd "$BOOK_DIR"
-asciidoctor -b html5 -d book -o "../../$DIST_DIR/index.html" book.adoc
-cd - > /dev/null
+
+echo "🌐 Сборка HTML..."
+asciidoctor -r asciidoctor-diagram -b html5 -d book -o "../../$DIST_DIR/index.html" book.adoc
 echo "   ✅ $DIST_DIR/index.html"
 
-# Сборка PDF
 echo "📄 Сборка PDF..."
-cd "$BOOK_DIR"
-asciidoctor-pdf -o "../../$DIST_DIR/book.pdf" book.adoc
-cd - > /dev/null
+asciidoctor-pdf -r asciidoctor-diagram \
+    -a pdf-theme=../../shared/themes/pdf-theme.yml \
+    -a pdf-fontsdir=../../shared/fonts/pt-serif;../../shared/fonts/fira-code \
+    -o "../../$DIST_DIR/book.pdf" book.adoc
 echo "   ✅ $DIST_DIR/book.pdf"
+
+cd - > /dev/null
 
 echo ""
 echo "🎉 Готово!"
