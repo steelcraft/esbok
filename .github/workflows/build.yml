@@ -15,6 +15,9 @@ jobs:
     container:
       image: asciidoctor/docker-asciidoctor:latest
 
+    permissions:
+      contents: write   # ️ Обязательно! Иначе деплой не сможет создать ветку
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
