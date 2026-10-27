@@ -25,6 +25,7 @@ cd "$BOOK_DIR"
 
 # Сборка PDF
 echo "📄 Сборка PDF..."
+cd ../..
 pwd
 cd "$BOOK_DIR"
 
