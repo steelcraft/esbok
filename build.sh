@@ -20,11 +20,12 @@ fi
 
 # Очистка кэша диаграмм
 rm -rf "$BOOK_DIR/.asciidoctor" 2>/dev/null || true
-
+pwd
 cd "$BOOK_DIR"
 
 # Сборка PDF
 echo "📄 Сборка PDF..."
+pwd
 cd "$BOOK_DIR"
 
 # ВАЖНО: используйте именно asciidoctor-pdf (слитно), а не asciidoctor -pdf
