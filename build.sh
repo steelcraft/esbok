@@ -23,11 +23,15 @@ rm -rf "$BOOK_DIR/.asciidoctor" 2>/dev/null || true
 pwd
 cd "$BOOK_DIR"
 
+echo "🌐 Сборка HTML..."
+asciidoctor -r asciidoctor-diagram -b html5 -d book -o "../../$DIST_DIR/index.html" book.adoc
+echo "   ✅ $DIST_DIR/index.html"
+
 # Сборка PDF
 echo "📄 Сборка PDF..."
-cd ../..
+#cd ../..
 pwd
-cd "$BOOK_DIR"
+#cd "$BOOK_DIR"
 
 # ВАЖНО: используйте именно asciidoctor-pdf (слитно), а не asciidoctor -pdf
 asciidoctor-pdf \
