@@ -31,9 +31,9 @@ cd "$BOOK_DIR"
 
 # ВАЖНО: используйте именно asciidoctor-pdf (слитно), а не asciidoctor -pdf
 asciidoctor-pdf \
-    -a pdf-theme=../../shared/themes/pdf-theme.yml \
-    -a pdf-fontsdir=../../shared/fonts/pt-serif;../../shared/fonts/fira-code \
     -o "../../$DIST_DIR/book.pdf" book.adoc
+#    -a pdf-theme=../../shared/themes/pdf-theme.yml \
+#    -a pdf-fontsdir=../../shared/fonts/pt-serif;../../shared/fonts/fira-code \
 
 cd - > /dev/null
 echo "   ✅ $DIST_DIR/book.pdf"
