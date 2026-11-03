@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" font-family="PT Serif, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок -->
+  <text x="300" y="25" text-anchor="middle" font-size="16" font-weight="bold">
+    Упрощённая архитектура микроконтроллера
+  </text>
+
+  <!-- CPU -->
+  <rect x="230" y="60" width="140" height="70" rx="6"
+        fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+  <text x="300" y="95" text-anchor="middle" font-size="14" font-weight="bold">CPU Core</text>
+  <text x="300" y="115" text-anchor="middle" font-size="11" fill="#555">ARM Cortex-M4</text>
+
+  <!-- Шина AHB -->
+  <rect x="80" y="160" width="440" height="30" rx="4"
+        fill="#fff3e0" stroke="#f57c00" stroke-width="1.5"/>
+  <text x="300" y="180" text-anchor="middle" font-size="12" font-weight="bold">
+    Шина AHB (High-speed)
+  </text>
+
+  <!-- Соединение CPU → AHB -->
+  <line x1="300" y1="130" x2="300" y2="160" stroke="#333" stroke-width="2"
+        marker-end="url(#arrow)"/>
+
+  <!-- Периферия -->
+  <g font-size="11">
+    <!-- Flash -->
+    <rect x="40" y="220" width="100" height="60" rx="4"
+          fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+    <text x="90" y="245" text-anchor="middle" font-weight="bold">Flash</text>
+    <text x="90" y="265" text-anchor="middle" fill="#555">512 KB</text>
+
+    <!-- SRAM -->
+    <rect x="160" y="220" width="100" height="60" rx="4"
+          fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+    <text x="210" y="245" text-anchor="middle" font-weight="bold">SRAM</text>
+    <text x="210" y="265" text-anchor="middle" fill="#555">128 KB</text>
+
+    <!-- GPIO -->
+    <rect x="280" y="220" width="100" height="60" rx="4"
+          fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+    <text x="330" y="245" text-anchor="middle" font-weight="bold">GPIO</text>
+    <text x="330" y="265" text-anchor="middle" fill="#555">8 портов</text>
+
+    <!-- Peripherals -->
+    <rect x="400" y="220" width="160" height="60" rx="4"
+          fill="#fff8e1" stroke="#f9a825" stroke-width="1.5"/>
+    <text x="480" y="245" text-anchor="middle" font-weight="bold">Периферия</text>
+    <text x="480" y="265" text-anchor="middle" fill="#555">UART · SPI · I2C · ADC</text>
+  </g>
+
+  <!-- Соединения AHB → периферия -->
+  <line x1="90" y1="190" x2="90" y2="220" stroke="#333" stroke-width="1.5"/>
+  <line x1="210" y1="190" x2="210" y2="220" stroke="#333" stroke-width="1.5"/>
+  <line x1="330" y1="190" x2="330" y2="220" stroke="#333" stroke-width="1.5"/>
+  <line x1="480" y1="190" x2="480" y2="220" stroke="#333" stroke-width="1.5"/>
+
+  <!-- Подпись -->
+  <text x="300" y="310" text-anchor="middle" font-size="10" fill="#777" font-style="italic">
+    Рис. 1. Блок-схема типичного 32-битного микроконтроллера
+  </text>
+</svg>
