@@ -39,5 +39,5 @@ include::chapters/types.adoc[]
 
 include::chapters/scalar_types.adoc[]
 
-//include::chapters/ch01.adoc[]
-// include::chapters/ch02.adoc[]
+include::chapters/array.adoc[]
+
