@@ -41,5 +41,7 @@ endif::[]
 
 //include::chapters/array.adoc[]
 
-include::chapters/struct.adoc[]
+//include::chapters/struct.adoc[]
+
+include::chapters/union.adoc[]
 
