@@ -23,21 +23,23 @@ ifdef::env-github[]
 :toc: macro
 endif::[]
 
-include::chapters/preface.adoc[]
+//include::chapters/preface.adoc[]
 
-include::chapters/history.adoc[]
+//include::chapters/history.adoc[]
 
-include::chapters/conception.adoc[]
+//include::chapters/conception.adoc[]
 
-include::chapters/first-prog.adoc[]
+//include::chapters/first-prog.adoc[]
 
-include::chapters/compilation.adoc[]
+//include::chapters/compilation.adoc[]
 
-include::chapters/macro.adoc[]
+//include::chapters/macro.adoc[]
 
-include::chapters/types.adoc[]
+//include::chapters/types.adoc[]
 
-include::chapters/scalar_types.adoc[]
+//include::chapters/scalar_types.adoc[]
 
-include::chapters/array.adoc[]
+//include::chapters/array.adoc[]
+
+include::chapters/struct.adoc[]
 
